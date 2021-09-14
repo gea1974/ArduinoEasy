@@ -763,10 +763,10 @@ void handle_devices(EthernetClient client, String &post) {
   byte setpage = WebServer.arg(F("setpage")).toInt();
   if (setpage > 0)
   {
-    if (setpage <= (TASKS_MAX / 4))
+    if (setpage <= (TASKS_MAX / 8))
       page = setpage;
     else
-      page = TASKS_MAX / 4;
+      page = TASKS_MAX / 8;
   }
 
   byte DeviceIndex = 0;
@@ -1365,7 +1365,7 @@ void sortDeviceArray()
 //********************************************************************************
 void addPinSelect(boolean forI2C, String& str, String name,  int choice)
 {
-  String options[10];
+  String options[38];
   options[0] = F(" ");
   options[1] = F("D2");
   options[2] = F("D3");
@@ -1376,7 +1376,35 @@ void addPinSelect(boolean forI2C, String& str, String name,  int choice)
   options[7] = F("D9");
   options[8] = F("D11");
   options[9] = F("D12");
-  int optionValues[10];
+  options[10] = F("D14");
+  options[11] = F("D15");
+  options[12] = F("D16");
+  options[13] = F("D17");
+  options[14] = F("D18");
+  options[15] = F("D19");
+  options[16] = F("D20");
+  options[17] = F("D21");
+  options[18] = F("D22");
+  options[19] = F("D23");
+  options[20] = F("D24");
+  options[21] = F("D25");
+  options[22] = F("D26");
+  options[23] = F("D27");
+  options[24] = F("D28");
+  options[25] = F("D29");
+  options[26] = F("D30");
+  options[27] = F("D31");
+  options[28] = F("D32");
+  options[29] = F("D33");
+  options[30] = F("D34");
+  options[31] = F("D35");
+  options[32] = F("D36");
+  options[33] = F("D37");
+  options[34] = F("D38");
+  options[35] = F("D39");
+  options[36] = F("D40");
+  options[37] = F("D41");
+  int optionValues[38];
   optionValues[0] = -1;
   optionValues[1] = 2;
   optionValues[2] = 3;
@@ -1387,10 +1415,38 @@ void addPinSelect(boolean forI2C, String& str, String name,  int choice)
   optionValues[7] = 9;
   optionValues[8] = 11;
   optionValues[9] = 12;
+  optionValues[10] = 14;
+  optionValues[11] = 15;
+  optionValues[12] = 16;
+  optionValues[13] = 17;
+  optionValues[14] = 18;
+  optionValues[15] = 19;
+  optionValues[16] = 20;
+  optionValues[17] = 21;
+  optionValues[18] = 22;
+  optionValues[19] = 23;
+  optionValues[20] = 24;
+  optionValues[20] = 25;
+  optionValues[20] = 26;
+  optionValues[20] = 27;
+  optionValues[20] = 28;
+  optionValues[20] = 29;
+  optionValues[20] = 30;
+  optionValues[20] = 31;
+  optionValues[20] = 32;
+  optionValues[20] = 33;
+  optionValues[30] = 34;
+  optionValues[31] = 35;
+  optionValues[32] = 36;
+  optionValues[33] = 37;
+  optionValues[34] = 38;
+  optionValues[35] = 39;
+  optionValues[36] = 40;
+  optionValues[37] = 41;
   str += F("<select name='");
   str += name;
   str += "'>";
-  for (byte x = 0; x < 10; x++)
+  for (byte x = 0; x < 38; x++)
   {
     str += F("<option value='");
     str += optionValues[x];
