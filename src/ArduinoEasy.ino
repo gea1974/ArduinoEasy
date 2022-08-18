@@ -76,7 +76,7 @@
 #define socketdebug                     false
 #define ARDUINO_PROJECT_PID       2016110201L
 #define VERSION                             2
-#define BUILD                             154
+#define BUILD                             156
 #define BUILD_NOTES                        ""
 
 #define NODE_TYPE_ID_ESP_EASY_STD           1
@@ -101,10 +101,10 @@
 
 #define CMD_REBOOT                         89
 
-#define DEVICES_MAX                         8 // ESP Easy 64
-#define TASKS_MAX                           8 // ESP Easy 12
+#define DEVICES_MAX                         38 // ESP Easy 64; Arduino Mega 8
+#define TASKS_MAX                           16 // ESP Easy 12; Arduino Mega 8
 #define VARS_PER_TASK                       4
-#define PLUGIN_MAX                          8 // ESP Easy 64
+#define PLUGIN_MAX                          12 // ESP Easy 64; Arduino Mega 8
 #define PLUGIN_CONFIGVAR_MAX                8
 #define PLUGIN_CONFIGFLOATVAR_MAX           4
 #define PLUGIN_CONFIGLONGVAR_MAX            4
