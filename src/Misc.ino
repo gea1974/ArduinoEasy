@@ -659,7 +659,7 @@ void LoadCustomControllerSettings(byte* memAddress, int datasize)
   \*********************************************************************************************/
 void SaveToFile(const __FlashStringHelper* fname, int index, byte* memAddress, int datasize)
 {
-  File f = SD.open(fname, FILE_WRITE);
+  File f = SD.open(fname, O_READ | O_WRITE);
   if (f)
   {
     f.seek(index);
@@ -670,7 +670,12 @@ void SaveToFile(const __FlashStringHelper* fname, int index, byte* memAddress, i
       pointerToByteToSave++;
     }
     f.close();
-    String log = F("FILE : File saved");
+    String log = F("FILE : File saved ");
+    log += fname;
+    log += F(" index ");
+    log += index;
+    log += F(" size ");
+    log += datasize;
     addLog(LOG_LEVEL_INFO, log);
   }
 }
