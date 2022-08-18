@@ -218,7 +218,7 @@ boolean Plugin_001(byte function, struct EventStruct *event, String& string)
         if (command == F("gpio"))
         {
           success = true;
-          if (event->Par1 >= 2 && event->Par1 <= 13)
+          if (Plugin_001_updatable_pin(event->Par1))
           {
             pinMode(event->Par1, OUTPUT);
             digitalWrite(event->Par1, event->Par2);
@@ -232,7 +232,7 @@ boolean Plugin_001(byte function, struct EventStruct *event, String& string)
         if (command == F("pwm"))
         {
           success = true;
-          if (event->Par1 >= 2 && event->Par1 <= 13)
+          if (Plugin_001_updatable_pin(event->Par1))
           {
             pinMode(event->Par1, OUTPUT);
             
@@ -267,7 +267,7 @@ boolean Plugin_001(byte function, struct EventStruct *event, String& string)
         if (command == F("pulse"))
         {
           success = true;
-          if (event->Par1 >= 2 && event->Par1 <= 13)
+          if (Plugin_001_updatable_pin(event->Par1))
           {
             pinMode(event->Par1, OUTPUT);
             digitalWrite(event->Par1, event->Par2);
@@ -283,7 +283,7 @@ boolean Plugin_001(byte function, struct EventStruct *event, String& string)
         if (command == F("longpulse"))
         {
           success = true;
-          if (event->Par1 >= 2 && event->Par1 <= 13)
+          if (Plugin_001_updatable_pin(event->Par1))
           {
             pinMode(event->Par1, OUTPUT);
             digitalWrite(event->Par1, event->Par2);
@@ -343,4 +343,8 @@ boolean Plugin_001(byte function, struct EventStruct *event, String& string)
       }
   }
   return success;
+}
+
+boolean Plugin_001_updatable_pin(int pin) {
+  return pin == 3 || ( pin >= 5 && pin <= 9) || ( pin >= 14 && pin <= 49) || ( pin >= 56 && pin <= 69);
 }
