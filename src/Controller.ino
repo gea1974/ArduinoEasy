@@ -125,7 +125,7 @@ void MQTTConnect()
       log = F("Subscribed to: ");
       log += subscribeTo;
       addLog(LOG_LEVEL_INFO, log);
-      break; // end loop if succesfull
+      //break; // end loop if succesfull
     }
     else
     {
@@ -133,7 +133,7 @@ void MQTTConnect()
       addLog(LOG_LEVEL_ERROR, log);
     }
 
-    delay(500);
+    //delay(500);
   }
 }
 
@@ -147,12 +147,14 @@ void MQTTCheck()
   if (Protocol[ProtocolIndex].usesMQTT)
     if (!MQTTclient.connected())
     {
-      String log = F("MQTT : Connection lost");
-      addLog(LOG_LEVEL_ERROR, log);
-      connectionFailures += 2;
-      MQTTclient.disconnect();
-      delay(1000);
-      MQTTConnect();
+      if (millis() - lastMQTTReconnectAttempt > 60000) {
+        // Reconnect attempts once per minute
+        String log = F("MQTT : Connection lost");
+        addLog(LOG_LEVEL_ERROR, log);
+        connectionFailures++;
+        MQTTConnect();
+        lastMQTTReconnectAttempt = millis();
+      }
     }
     else if (connectionFailures)
       connectionFailures--;
