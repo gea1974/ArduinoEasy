@@ -387,9 +387,28 @@ void taskClear(byte taskIndex, boolean save)
 void getIPfromHostName()
 {
   IPAddress IP;
+
   if (Settings.ControllerHostName[0] != 0)
   {
-    // todo WiFi.hostByName(Settings.ControllerHostName, IP);
+  
+  ////// gea: do dns resolve for Controller host name
+  ////// gea: copied this from ntp resolve
+  // The W5100 seems to have an issue with mixing TCP UDP on the same socket.
+  // So we stop the default listening UDP socket now, so DNS client will reuse this UDP socket
+  if (Settings.UDPPort != 0)
+    portUDP.stop();
+  int ret = 0;
+  DNSClient dns;
+  dns.begin(Ethernet.dnsServerIP());
+  #if socketdebug
+    ShowSocketStatus();
+  #endif
+  ret = dns.getHostByName(Settings.ControllerHostName, IP);
+  ////// gea: do dns resolve for Controller host name
+    
+  if (Settings.UDPPort != 0)
+    portUDP.begin(Settings.UDPPort);  // re-use UDP socket for system packets if it was used before
+    
     for (byte x = 0; x < 4; x++)
       Settings.Controller_IP[x] = IP[x];
   }
