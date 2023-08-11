@@ -101,7 +101,7 @@ void MQTTConnect()
   String subscribeTo = "";
 
   String LWTTopic = Settings.MQTTsubscribe;
-  LWTTopic.replace(F("/#"), F("/status"));
+  LWTTopic.replace(F("/#"), F("/Connection")); //gea: Connection vs. status
   LWTTopic.replace(F("%sysname%"), Settings.Name);
   
   for (byte x = 1; x < 3; x++)
@@ -109,7 +109,7 @@ void MQTTConnect()
     String log = "";
     boolean MQTTresult = false;
 
-    String msg = F("Connection Lost");
+    String msg = F("Offline");
     if ((SecuritySettings.ControllerUser[0] != 0) && (SecuritySettings.ControllerPassword[0] != 0))
       MQTTresult = MQTTclient.connect(clientid.c_str(), SecuritySettings.ControllerUser, SecuritySettings.ControllerPassword, LWTTopic.c_str(), 0, 0, msg.c_str());
     else
@@ -125,16 +125,15 @@ void MQTTConnect()
       log = F("Subscribed to: ");
       log += subscribeTo;
       addLog(LOG_LEVEL_INFO, log);
-      //break; // end loop if succesfull
-    }
-    else
-    {
-      log = F("MQTT : Failed to connected to broker");
-      addLog(LOG_LEVEL_ERROR, log);
-    }
-
-    //delay(500);
-  }
+      msg = F("Online");                                                                          //gea: publish online to topic connection
+      MQTTclient.publish(LWTTopic.c_str(), msg.c_str(),true);                                     //gea: retain online        
+     }
+     else
+     {
+        log = F("MQTT : Failed to connected to broker");
+        addLog(LOG_LEVEL_ERROR, log);
+     }
+	}
 }
 
 
