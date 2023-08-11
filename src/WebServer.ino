@@ -303,7 +303,7 @@ void handle_root(EthernetClient client, String &post) {
     
     reply += F("<TD><TD>Uptime:<TD>");
     char strUpTime[40];
-    int minutes = wdcounter / 2;
+    long minutes = wdcounter / 2;         //gea 2021-03-17 fix: show negativ values
     int days = minutes / 1440;
     minutes = minutes % 1440;
     int hrs = minutes / 60;
